@@ -2,17 +2,8 @@ import os
 import matplotlib.pylab as plt
 import inspect, re
 import numpy as np
+import datetime
 import cv2
-
-
-def out(p):
-    """
-    function prints variable name and value. good for debugging
-    """
-    for line in inspect.getframeinfo(inspect.currentframe().f_back)[3]:
-        m = re.search(r'\bout\s*\(\s*([A-Za-z_][A-Za-z0-9_]*)\s*\)', line)
-        if m:
-            print m.group(1), ":  ", p
 
 
 def disp(img_list, title_list = None, fname = None):
@@ -35,7 +26,19 @@ def disp(img_list, title_list = None, fname = None):
         
     plt.show()
 
-
+def show_earthquake_timeline(dates, mags):
+    
+    d = [datetime.date(*date) for date in dates]
+    m = np.copy(np.array(mags))
+    
+    plt.figure()
+    plt.scatter(d, m)
+    plt.xlabel("date")
+    plt.ylabel("magnitude")
+    plt.show()
+    
+    
+    
 def show_so2_sat_timeline(dates, so2):
     
     s = np.copy(np.array(so2))
