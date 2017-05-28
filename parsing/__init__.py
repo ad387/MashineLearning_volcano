@@ -1,1 +1,0 @@
-import parse_so2_sat
