@@ -162,6 +162,22 @@ class Earthquake():
         self.mags = mags_new
         self.dates = dates_new
         
+    def _occurrence_frequency_vector(self):
+        """
+        convert Data from events in vector wich only contains the occurrence_frequency
+        """
+        
+        d_beg = datetime.date(*self._t_beg)
+        d_end = datetime.date(*self._t_end)
+        n_days = (d_end - d_beg).days
+
+        freq_vec = np.zeros(n_days)
+
+        for d in self.dates:
+            idx = (d_end - datetime.date(*d)).days
+            freq_vec[idx] += 1
+            
+        return freq_vec
     
     def get_frequency_nearest(self):
         """
@@ -174,13 +190,23 @@ class Earthquake():
         return dates, freq
     
     
-    def get_frequency_box(self, box_size = 5):
+    def get_mean_frequency(self, time_interval = 5):
         """
         get the earthquake-occurence-frequency-timeline
         freq(t) = number_of_earthquakes(t-T/2 < t < t+T/2)
-        where T is the box size in days
+        where T is the time interval in days
         """
         # self.dates...
+        
+        
+        freq_vec = self._occurrence_frequency_vector()
+        freq = np.convolve(freq_vec, np.ones((time_interval,))/time_interval)
+        
+        
+        dates_temporarily = self.dates
+        dates = dates_temporarily[time_interval/2-1:-time_interval/2]
+        
+
         
         return dates, freq
         
