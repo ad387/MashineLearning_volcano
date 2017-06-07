@@ -3,7 +3,9 @@ import matplotlib.pylab as plt
 import inspect, re
 import numpy as np
 import datetime
-import cv2
+import matplotlib.gridspec as gridspec  # for unequal plot boxes
+
+#import cv2
 
 
 def disp(img_list, title_list = None, fname = None):
@@ -54,5 +56,21 @@ def show_so2_sat_timeline(dates, so2):
     plt.xlabel("date")
     plt.ylabel("SO2")
     plt.show()
+    
+    
+def plot_Data(X,Y,Label = None, x_name = "x_name",y_name = "y_name" ):
+        fig = plt.figure()
+        gs = gridspec.GridSpec(1, 1, height_ratios=[3])
+        ax2 = fig.add_subplot(gs[0])
+        ax2.set_xlabel("x_name")
+        ax2.set_ylabel("y_name")
+        plt.errorbar(X,Y,linestyle = "None",fmt='o',label= Label)
+        cm = plt.cm.get_cmap('RdYlBu')    
+        ax2.legend(loc='lower right', shadow=True)
+
+
+        plt.grid(True) 
+        plt.xticks(rotation='horizontal')
+        plt.show()
     
     

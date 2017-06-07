@@ -220,7 +220,7 @@ class Earthquake():
         freq = freq[time_interval/2-1:-time_interval/2]
         
         # get date range vector
-        dates = self._date_range_vector(self._t_beg, self._t_end)
+        dates = np.array(self._date_range_vector(self._t_beg, self._t_end))
         
         return dates, freq
         
