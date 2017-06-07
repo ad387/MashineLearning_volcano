@@ -58,6 +58,10 @@ class Earthquake():
         # restrict to given time period 
         if (self._t_beg is not None) and (self._t_end is not None):
             self._restrict_to_time_period()
+        else:
+            dd = [datetime.date(*d) for d in self.dates]
+            self._t_beg = (min(dd).year, min(dd).month, min(dd).day)
+            self._t_end = (max(dd).year, max(dd).month, max(dd).day)
             
         print "loaded {} events".format(len(self.dates))
     
@@ -170,7 +174,7 @@ class Earthquake():
         
         d_beg = datetime.date(*self._t_beg)
         d_end = datetime.date(*self._t_end)
-        n_days = (d_end - d_beg).days
+        n_days = (d_end - d_beg).days + 1
 
         freq_vec = np.zeros(n_days)
 
