@@ -3,7 +3,7 @@ import numpy as np
 import datetime
 from obspy.clients.fdsn import Client
 
-PATH_DATA = "data/earthquakes"
+PATH_DATA = os.path.join("data_git", "earthquakes")
 
 
 
@@ -191,7 +191,7 @@ class Earthquake():
         
         d_beg = datetime.date(*t_beg)
         d_end = datetime.date(*t_end)
-        delta_t = (d_end - d_beg).days
+        delta_t = (d_end - d_beg).days + 1
         dates = [d_beg + datetime.timedelta(d) for d in range(delta_t)]
         
         return dates

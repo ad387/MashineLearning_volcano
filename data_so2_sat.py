@@ -7,8 +7,8 @@ import urllib2
 import datetime
 from tqdm import tqdm
 
-PATH_DATA_IMG = "data/SO2_satelite"
-PATH_DATA_PTS = "data/SO2_sat_point"
+PATH_DATA_IMG = os.path.join("data", "SO2_satelite")
+PATH_DATA_PTS = os.path.join("data_git", "SO2_sat_point")
 URL           = "https://avdc.gsfc.nasa.gov/pub/data/satellite/Suomi_NPP/NMSO2-PCA-L2/"
 ARRAY_IDS     = ["SO2_PBL", "SO2_STL", "SO2_TRL", "SO2_TRM", "SO2_TRU"]
 INVALID_VAL   = -999.0
@@ -240,7 +240,6 @@ class SO2_Sat():
             
             try:
             
-                date = date + datetime.timedelta(1)
                 t = (date.year, date.month, date.day)
 
                 dates.append(date)
@@ -248,6 +247,8 @@ class SO2_Sat():
                 so2_val = self._get_so2_for_date(t)
                 for key in self._array_ids:
                     so2_timeseq[key].append(so2_val[key])
+                    
+                date = date + datetime.timedelta(1)
                 
             except:
                 
