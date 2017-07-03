@@ -57,6 +57,16 @@ def show_so2_sat_timeline(dates, so2):
     plt.ylabel("SO2")
     plt.show()
     
+
+def show_so2_eq_freq_timeline(so2_dates, so2, eq_dates, eq):
+    plt.figure()
+    fig, ax1 = plt.subplots()
+    ax1.plot(so2_dates, so2)
+    ax1.set_ylim(bottom=0)
+    ax2 = ax1.twinx()
+    ax2.plot(eq_dates, eq, color = 'r')
+    plt.show()
+    
     
 def plot_Data(X,Y,Label = None, x_name = "x_name",y_name = "y_name" ):
         fig = plt.figure()
